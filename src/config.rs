@@ -21,3 +21,21 @@ impl Config {
         })
     }
 }
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    #[test]
+    fn config_struct_can_be_created() {
+        let config = Config {
+            rpc_url: "http://localhost:18443".to_string(),
+            rpc_user: "bitcoin".to_string(),
+            rpc_password: "password".to_string(),
+        };
+
+        assert_eq!(config.rpc_url, "http://localhost:18443");
+        assert_eq!(config.rpc_user, "bitcoin");
+        assert_eq!(config.rpc_password, "password");
+    }
+}

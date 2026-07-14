@@ -192,6 +192,8 @@ Additional examples:
 - [`balance.txt`](examples/balance.txt)
 - [`new-address.txt`](examples/new-address.txt)
 - [`rpc-getblockcount.txt`](examples/rpc-getblockcount.txt)
+- [`rpc-getblockhash.txt`](examples/rpc-getblockhash.txt)
+- [`rpc-getblock.txt`](examples/rpc-getblock.txt)
 - [`rpc-invalid-method.txt`](examples/rpc-invalid-method.txt)
 
 
