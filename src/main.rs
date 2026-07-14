@@ -15,6 +15,7 @@ use cli::{Cli, Commands};
 use config::Config;
 use rpc::RpcClient;
 use serde_json::json;
+use models::{BlockchainInfo, RpcResponse};
 
 #[tokio::main]
 async fn main() -> anyhow::Result<()> {
@@ -25,11 +26,21 @@ async fn main() -> anyhow::Result<()> {
             let config = Config::from_env();
             let rpc = RpcClient::new(config);
 
-            let response = rpc
-                .call("getblockchaininfo", json!([]))
-                .await?;
+            let response: RpcResponse<BlockchainInfo> = rpc
+    .call("getblockchaininfo", json!([]))
+    .await?;
 
-            println!("{:#?}", response);
+            println!();
+println!("Blockchain Information");
+println!("======================");
+println!("Chain: {}", response.result.chain);
+println!("Blocks: {}", response.result.blocks);
+println!("Headers: {}", response.result.headers);
+println!("Difficulty: {}", response.result.difficulty);
+println!(
+    "Verification Progress: {:.2}%",
+    response.result.verificationprogress * 100.0
+);
         }
 
         Commands::WalletInfo => {

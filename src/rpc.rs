@@ -1,7 +1,10 @@
 use anyhow::Result;
 use reqwest::Client;
+use serde::de::DeserializeOwned;
+use serde_json::Value;
 
 use crate::config::Config;
+
 
 pub struct RpcClient {
     client: Client,
@@ -16,11 +19,14 @@ impl RpcClient {
         }
     }
 
-    pub async fn call(
-        &self,
-        method: &str,
-        params: serde_json::Value,
-    ) -> Result<serde_json::Value> {
+    pub async fn call<T>(
+    &self,
+    method: &str,
+    params: impl serde::Serialize,
+) -> Result<T>
+where
+    T: DeserializeOwned,
+    {
         let body = serde_json::json!({
             "jsonrpc": "1.0",
             "id": "bitcoin-rpc-cli",
@@ -39,7 +45,7 @@ impl RpcClient {
             .send()
             .await?;
 
-        let json: serde_json::Value = response.json().await?;
+        let json = response.json::<T>().await?;
 
         Ok(json)
     }
