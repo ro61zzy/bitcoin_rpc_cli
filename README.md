@@ -253,6 +253,24 @@ Possible future enhancements include:
 
 ---
 
+## Additional Notes
+
+### Assumptions
+
+- The application is designed to communicate with a local Bitcoin Core node running on **Regtest** using **Polar**.
+- RPC credentials are provided through a `.env` file.
+- The default wallet created by Bitcoin Core is used.
+- The Bitcoin Core node is running and accessible before executing CLI commands.
+
+### Notes
+
+- This project targets recent versions of Bitcoin Core. Wallet metadata is retrieved using `getwalletinfo`, while wallet balances are retrieved using `getbalances`, reflecting the current Bitcoin Core RPC API.
+- The generic `rpc` command supports dynamically typed parameters by attempting to parse command-line arguments as JSON values before falling back to strings. This allows commands such as `getblockhash 1` to work correctly.
+- The RPC client encapsulates JSON-RPC communication, authentication, response deserialization, and RPC error handling, allowing command implementations to remain focused on application logic.
+
+---
+
+
 # Built With
 
 - Rust
