@@ -15,3 +15,21 @@ pub struct BlockchainInfo {
     pub difficulty: f64,
     pub verificationprogress: f64,
 }
+
+#[derive(Debug, Deserialize)]
+pub struct WalletInfo {
+    pub walletname: String,
+    pub txcount: u64,
+}
+
+#[derive(Debug, Deserialize)]
+pub struct Balances {
+    pub mine: MineBalances,
+}
+
+#[derive(Debug, Deserialize)]
+pub struct MineBalances {
+    pub trusted: f64,
+    pub untrusted_pending: f64,
+    pub immature: f64,
+}
