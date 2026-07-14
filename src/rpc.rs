@@ -1,9 +1,11 @@
-use anyhow::Result;
+use anyhow::{bail, Context, Result};
 use reqwest::Client;
 use serde::de::DeserializeOwned;
 
-use crate::config::Config;
-
+use crate::{
+    config::Config,
+    models::RpcResponse,
+};
 
 pub struct RpcClient {
     client: Client,
@@ -19,12 +21,12 @@ impl RpcClient {
     }
 
     pub async fn call<T>(
-    &self,
-    method: &str,
-    params: impl serde::Serialize,
-) -> Result<T>
-where
-    T: DeserializeOwned,
+        &self,
+        method: &str,
+        params: impl serde::Serialize,
+    ) -> Result<T>
+    where
+        T: DeserializeOwned,
     {
         let body = serde_json::json!({
             "jsonrpc": "1.0",
@@ -42,10 +44,22 @@ where
             )
             .json(&body)
             .send()
-            .await?;
+            .await
+            .context("Failed to connect to Bitcoin Core RPC endpoint")?;
 
-        let json = response.json::<T>().await?;
+        let rpc_response = response
+            .json::<RpcResponse<T>>()
+            .await
+            .context("Failed to parse JSON-RPC response from Bitcoin Core")?;
 
-        Ok(json)
+        if let Some(error) = rpc_response.error {
+            bail!("RPC Error ({}): {}", error.code, error.message);
+        }
+
+        let result = rpc_response
+            .result
+            .context("Bitcoin Core returned an empty result")?;
+
+        Ok(result)
     }
 }

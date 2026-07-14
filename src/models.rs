@@ -1,10 +1,11 @@
 use serde::Deserialize;
 
+use crate::error::RpcError;
+
 #[derive(Debug, Deserialize)]
 pub struct RpcResponse<T> {
-    pub result: T,
-    pub error: Option<serde_json::Value>,
-    pub id: String,
+    pub result: Option<T>,
+    pub error: Option<RpcError>,
 }
 
 #[derive(Debug, Deserialize)]

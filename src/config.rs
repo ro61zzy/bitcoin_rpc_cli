@@ -1,3 +1,4 @@
+use anyhow::{Context, Result};
 use std::env;
 
 pub struct Config {
@@ -7,13 +8,18 @@ pub struct Config {
 }
 
 impl Config {
-    pub fn from_env() -> Self {
+    pub fn from_env() -> Result<Self> {
         dotenvy::dotenv().ok();
 
-        Self {
-            rpc_url: env::var("RPC_URL").expect("RPC_URL is missing"),
-            rpc_user: env::var("RPC_USER").expect("RPC_USER is missing"),
-            rpc_password: env::var("RPC_PASSWORD").expect("RPC_PASSWORD is missing"),
-        }
+        Ok(Self {
+            rpc_url: env::var("RPC_URL")
+                .context("Missing environment variable: RPC_URL")?,
+
+            rpc_user: env::var("RPC_USER")
+                .context("Missing environment variable: RPC_USER")?,
+
+            rpc_password: env::var("RPC_PASSWORD")
+                .context("Missing environment variable: RPC_PASSWORD")?,
+        })
     }
 }
