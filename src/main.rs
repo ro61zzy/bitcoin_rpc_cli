@@ -12,13 +12,24 @@ mod commands {
 
 use clap::Parser;
 use cli::{Cli, Commands};
+use config::Config;
+use rpc::RpcClient;
+use serde_json::json;
 
-fn main() {
+#[tokio::main]
+async fn main() -> anyhow::Result<()> {
     let cli = Cli::parse();
 
     match cli.command {
         Commands::BlockchainInfo => {
-            println!("Blockchain info command selected");
+            let config = Config::from_env();
+            let rpc = RpcClient::new(config);
+
+            let response = rpc
+                .call("getblockchaininfo", json!([]))
+                .await?;
+
+            println!("{:#?}", response);
         }
 
         Commands::WalletInfo => {
@@ -38,4 +49,6 @@ fn main() {
             println!("Params: {:?}", params);
         }
     }
+
+    Ok(())
 }
