@@ -1,0 +1,9 @@
+
+╭──────────────────────────────────────────────╮
+│            Blockchain Information            │
+╰──────────────────────────────────────────────╯
+Chain:                    regtest
+Blocks:                   1
+Headers:                  1
+Difficulty:               0.00000000046565423739069247
+Verification Progress:    17.57%

@@ -1,0 +1,9 @@
+
+╭──────────────────────────────────────────────╮
+│              Wallet Information              │
+╰──────────────────────────────────────────────╯
+Wallet Name:              
+Transactions:             1
+Trusted Balance:          0.00000000 BTC
+Untrusted Pending:        0.00000000 BTC
+Immature Balance:         50.00000000 BTC
