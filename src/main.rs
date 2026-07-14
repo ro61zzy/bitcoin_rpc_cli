@@ -61,8 +61,17 @@ println!(
 }
 
         Commands::NewAddress => {
-            println!("New address command selected");
-        }
+    let config = Config::from_env();
+    let rpc = RpcClient::new(config);
+
+    let response: RpcResponse<String> = rpc
+        .call("getnewaddress", json!([]))
+        .await?;
+
+    println!("New Receiving Address");
+    println!("=====================");
+    println!("{}", response.result);
+}
 
         Commands::Rpc { method, params } => {
     let config = Config::from_env();
