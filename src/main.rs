@@ -47,18 +47,33 @@ println!(
             println!("Wallet info command selected");
         }
 
-        Commands::Balance => {
-            println!("Balance command selected");
-        }
+       Commands::Balance => {
+    let config = Config::from_env();
+    let rpc = RpcClient::new(config);
+
+    let response: RpcResponse<f64> = rpc
+        .call("getbalance", json!([]))
+        .await?;
+
+    println!("Wallet Balance");
+    println!("==============");
+    println!("{:.8} BTC", response.result);
+}
 
         Commands::NewAddress => {
             println!("New address command selected");
         }
 
         Commands::Rpc { method, params } => {
-            println!("RPC method: {}", method);
-            println!("Params: {:?}", params);
-        }
+    let config = Config::from_env();
+    let rpc = RpcClient::new(config);
+
+    let response: serde_json::Value = rpc
+        .call(&method, json!(params))
+        .await?;
+
+    println!("{:#}", response);
+}
     }
 
     Ok(())

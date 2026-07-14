@@ -1,7 +1,6 @@
 use anyhow::Result;
 use reqwest::Client;
 use serde::de::DeserializeOwned;
-use serde_json::Value;
 
 use crate::config::Config;
 
