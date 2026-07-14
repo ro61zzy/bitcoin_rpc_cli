@@ -15,8 +15,5 @@ pub enum Commands {
     Balance,
     NewAddress,
 
-    Rpc {
-        method: String,
-        params: Vec<String>,
-    },
+    Rpc { method: String, params: Vec<String> },
 }

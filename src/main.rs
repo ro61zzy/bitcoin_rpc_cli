@@ -18,27 +18,27 @@ use cli::{Cli, Commands};
 async fn main() -> anyhow::Result<()> {
     let cli = Cli::parse();
 
-   match cli.command {
-    Commands::BlockchainInfo => {
-        commands::blockchain::run().await?;
-    }
+    match cli.command {
+        Commands::BlockchainInfo => {
+            commands::blockchain::run().await?;
+        }
 
-    Commands::WalletInfo => {
-        commands::wallet::info().await?;
-    }
+        Commands::WalletInfo => {
+            commands::wallet::info().await?;
+        }
 
-    Commands::Balance => {
-        commands::wallet::balance().await?;
-    }
+        Commands::Balance => {
+            commands::wallet::balance().await?;
+        }
 
-    Commands::NewAddress => {
-        commands::address::run().await?;
-    }
+        Commands::NewAddress => {
+            commands::address::run().await?;
+        }
 
-    Commands::Rpc { method, params } => {
-        commands::rpc::run(method, params).await?;
+        Commands::Rpc { method, params } => {
+            commands::rpc::run(method, params).await?;
+        }
     }
-}
 
     Ok(())
 }

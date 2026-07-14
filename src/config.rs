@@ -12,11 +12,9 @@ impl Config {
         dotenvy::dotenv().ok();
 
         Ok(Self {
-            rpc_url: env::var("RPC_URL")
-                .context("Missing environment variable: RPC_URL")?,
+            rpc_url: env::var("RPC_URL").context("Missing environment variable: RPC_URL")?,
 
-            rpc_user: env::var("RPC_USER")
-                .context("Missing environment variable: RPC_USER")?,
+            rpc_user: env::var("RPC_USER").context("Missing environment variable: RPC_USER")?,
 
             rpc_password: env::var("RPC_PASSWORD")
                 .context("Missing environment variable: RPC_PASSWORD")?,

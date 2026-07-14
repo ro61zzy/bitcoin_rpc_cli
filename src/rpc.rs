@@ -1,11 +1,8 @@
-use anyhow::{bail, Context, Result};
+use anyhow::{Context, Result, bail};
 use reqwest::Client;
 use serde::de::DeserializeOwned;
 
-use crate::{
-    config::Config,
-    models::RpcResponse,
-};
+use crate::{config::Config, models::RpcResponse};
 
 pub struct RpcClient {
     client: Client,
@@ -20,11 +17,7 @@ impl RpcClient {
         }
     }
 
-    pub async fn call<T>(
-        &self,
-        method: &str,
-        params: impl serde::Serialize,
-    ) -> Result<T>
+    pub async fn call<T>(&self, method: &str, params: impl serde::Serialize) -> Result<T>
     where
         T: DeserializeOwned,
     {
@@ -38,10 +31,7 @@ impl RpcClient {
         let response = self
             .client
             .post(&self.config.rpc_url)
-            .basic_auth(
-                &self.config.rpc_user,
-                Some(&self.config.rpc_password),
-            )
+            .basic_auth(&self.config.rpc_user, Some(&self.config.rpc_password))
             .json(&body)
             .send()
             .await
