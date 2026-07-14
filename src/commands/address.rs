@@ -14,10 +14,11 @@ pub async fn run() -> Result<()> {
         .call("getnewaddress", json!([]))
         .await?;
 
-    println!();
-    println!("New Receiving Address");
-    println!("=====================");
-    println!("{}", address);
+   println!();
+println!("╭──────────────────────────────────────────────╮");
+println!("│            New Receiving Address             │");
+println!("╰──────────────────────────────────────────────╯");
+println!("{}", address);
 
     Ok(())
 }

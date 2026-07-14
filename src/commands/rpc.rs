@@ -14,7 +14,11 @@ pub async fn run(method: String, params: Vec<String>) -> Result<()> {
         .call(&method, json!(params))
         .await?;
 
-    println!("{:#}", response);
+   println!();
+println!("╭──────────────────────────────────────────────╮");
+println!("│                RPC Response                  │");
+println!("╰──────────────────────────────────────────────╯");
+println!("{:#}", response);
 
     Ok(())
 }

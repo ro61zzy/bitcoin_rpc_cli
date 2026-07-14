@@ -19,17 +19,21 @@ pub async fn info() -> Result<()> {
         .call("getbalances", json!([]))
         .await?;
 
-    println!();
-    println!("Wallet Information");
-    println!("==================");
-    println!("Wallet Name: {}", wallet.walletname);
-    println!("Transactions: {}", wallet.txcount);
-    println!("Trusted Balance: {:.8} BTC", balances.mine.trusted);
-    println!(
-        "Untrusted Pending: {:.8} BTC",
-        balances.mine.untrusted_pending
-    );
-    println!("Immature Balance: {:.8} BTC", balances.mine.immature);
+   println!();
+println!("╭──────────────────────────────────────────────╮");
+println!("│              Wallet Information              │");
+println!("╰──────────────────────────────────────────────╯");
+println!("Wallet Name:              {}", wallet.walletname);
+println!("Transactions:             {}", wallet.txcount);
+println!("Trusted Balance:          {:.8} BTC", balances.mine.trusted);
+println!(
+    "Untrusted Pending:        {:.8} BTC",
+    balances.mine.untrusted_pending
+);
+println!(
+    "Immature Balance:         {:.8} BTC",
+    balances.mine.immature
+);
 
     Ok(())
 }
@@ -42,10 +46,11 @@ pub async fn balance() -> Result<()> {
         .call("getbalance", json!([]))
         .await?;
 
-    println!();
-    println!("Wallet Balance");
-    println!("==============");
-    println!("{:.8} BTC", balance);
+   println!();
+println!("╭──────────────────────────────────────────────╮");
+println!("│               Wallet Balance                 │");
+println!("╰──────────────────────────────────────────────╯");
+println!("Balance:                  {:.8} BTC", balance);
 
     Ok(())
 }

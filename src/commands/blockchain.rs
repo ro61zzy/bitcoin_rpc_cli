@@ -15,17 +15,18 @@ pub async fn run() -> Result<()> {
         .call("getblockchaininfo", json!([]))
         .await?;
 
-    println!();
-    println!("Blockchain Information");
-    println!("======================");
-    println!("Chain: {}", info.chain);
-    println!("Blocks: {}", info.blocks);
-    println!("Headers: {}", info.headers);
-    println!("Difficulty: {}", info.difficulty);
-    println!(
-        "Verification Progress: {:.2}%",
-        info.verificationprogress * 100.0
-    );
+   println!();
+println!("╭──────────────────────────────────────────────╮");
+println!("│            Blockchain Information            │");
+println!("╰──────────────────────────────────────────────╯");
+println!("Chain:                    {}", info.chain);
+println!("Blocks:                   {}", info.blocks);
+println!("Headers:                  {}", info.headers);
+println!("Difficulty:               {}", info.difficulty);
+println!(
+    "Verification Progress:    {:.2}%",
+    info.verificationprogress * 100.0
+);
 
     Ok(())
 }
